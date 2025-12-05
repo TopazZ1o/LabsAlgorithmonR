@@ -9,18 +9,18 @@ M <- 20           # Частота вывода графиков (каждые M
 # Вычисление числа Куранта
 c <- a * tau / h
 
-cat("Длина области: l =", l, "\n")
-cat("Скорость волны: a =", a, "\n")
-cat("Число узлов: N =", N, "\n")
-cat("Шаг пространства: h =", h, "\n")
-cat("Шаг времени: tau =", tau, "\n")
-cat("Число Куранта: c =", round(c, 4), "\n")
+cat("Длина области: l =", l)
+cat("Скорость волны: a =", a)
+cat("Число узлов: N =", N)
+cat("Шаг пространства: h =", h)
+cat("Шаг времени: tau =", tau)
+cat("Число Куранта: c =", round(c, 4))
 
 # Проверка условия устойчивости
 if (abs(c) < 1) {
-  cat("Условие устойчивости |c| < 1: выполнено\n")
+  cat("Условие устойчивости |c| < 1: выполнено")
 } else {
-  cat("Условие устойчивости не выполнено\n")
+  cat("Условие устойчивости не выполнено")
 }
 cat("\n")
 
@@ -69,9 +69,6 @@ for (j in 2:N) {
 u_prev[1] <- mu3(tau)
 u_prev[N+1] <- mu4(tau)
 
-cat("Начальные условия установлены\n")
-cat("Начало расчетов...\n\n")
-
 # Вычисление максимального числа шагов
 k_max <- as.integer(T_max / tau)
 
@@ -116,8 +113,7 @@ while (k <= k_max) {
   k <- k + 1
 }
 
-cat("\nВычисления завершены!\n")
-cat("Всего выполнено шагов:", k - 1, "\n\n")
+cat("Всего выполнено шагов:", k - 1)
 
 t_final <- (k - 1) * tau
 u_analytic <- sin(pi * x / l) * cos(pi * a * t_final / l)
@@ -127,22 +123,7 @@ error <- abs(u_curr - u_analytic)
 max_error <- max(error)
 mean_error <- mean(error)
 
-cat("Сравнение с аналитическим решением\n")
-cat("Время t =", round(t_final, 4), "\n")
-cat("Максимальная погрешность:", sprintf("%.6e", max_error), "\n")
-cat("Средняя погрешность:", sprintf("%.6e", mean_error), "\n\n")
-
-# График сравнения
-dev.new()
-par(mfrow = c(1, 1))
-plot(x, u_curr, type = "l", col = "blue", lwd = 2,
-     xlab = "x", ylab = "u(x,t)",
-     main = paste("Сравнение решений при t =", round(t_final, 3)),
-     ylim = c(-1.5, 1.5))
-lines(x, u_analytic, col = "red", lwd = 2, lty = 2)
-legend("topright", 
-       legend = c("Численное решение", "Аналитическое решение"),
-       col = c("blue", "red"), 
-       lwd = 2, 
-       lty = c(1, 2))
-grid()
+cat("Сравнение с аналитическим решением")
+cat("Время t =", round(t_final, 4))
+cat("Максимальная погрешность:", sprintf("%.6e", max_error))
+cat("Средняя погрешность:", sprintf("%.6e", mean_error))
